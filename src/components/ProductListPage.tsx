@@ -1,7 +1,7 @@
-import { useProducts } from '../../hooks/useProducts';
-import { Table } from '../../components/Table';
-import type { Column } from '../../types/table';
-import type { Product } from '../../types/product';
+import { useProducts } from '../hooks/useProducts';
+import { Table } from './common/Table';
+import type { Column } from '../types/table';
+import type { Product } from '../types/product';
 import { StarIcon } from 'lucide-react';
 
 export function ProductListPage() {

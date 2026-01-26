@@ -1,21 +1,28 @@
-import type { ProductsResponse } from "../types/product";
+const BASE_URL = 'https://dummyjson.com';
 
-const API_BASE_URL = "https://dummyjson.com";
-
-export async function fetchProducts(
-  skip: number = 0,
-  limit: number = 20,
-): Promise<ProductsResponse> {
-  const params = new URLSearchParams({
-    skip: skip.toString(),
-    limit: limit.toString(),
-  });
-
-  const response = await fetch(`${API_BASE_URL}/products?${params}`);
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch products: ${response.statusText}`);
+export const productsApi = {
+  getProducts: async (limit = 20, skip = 0) => {
+    const response = await fetch(`${BASE_URL}/products?limit=${limit}&skip=${skip}`);
+    return response.json();
+  },
+  
+  getProductById: async (id: string) => {
+    const response = await fetch(`${BASE_URL}/products/${id}`);
+    return response.json();
+  },
+  
+  searchProducts: async (query: string, limit = 20, skip = 0) => {
+    const response = await fetch(`${BASE_URL}/products/search?q=${query}&limit=${limit}&skip=${skip}`);
+    return response.json();
+  },
+  
+  getCategories: async () => {
+    const response = await fetch(`${BASE_URL}/products/categories`);
+    return response.json();
+  },
+  
+  getProductsByCategory: async (category: string, limit = 20, skip = 0) => {
+    const response = await fetch(`${BASE_URL}/products/category/${category}?limit=${limit}&skip=${skip}`);
+    return response.json();
   }
-
-  return response.json();
-}
+};

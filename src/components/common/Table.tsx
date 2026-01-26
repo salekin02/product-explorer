@@ -1,6 +1,6 @@
 import { ChevronUp, ChevronDown } from 'lucide-react';
+import type { Column, TableProps } from '../../types/table';
 import { TableSkeleton } from './TableSkeleton';
-import type { Column, TableProps } from '../types/table';
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
