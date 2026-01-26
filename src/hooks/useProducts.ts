@@ -1,5 +1,5 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import type { Product, ProductsResponse } from '../types/product';
+import type { Product, ProductsResponse, Category } from '../types/product';
 import { productsApi } from '../api/products';
 
 const ITEMS_PER_PAGE = 20;
@@ -16,6 +16,13 @@ export function useProducts() {
       return nextSkip < lastPage.total ? nextSkip : undefined;
     },
     initialPageParam: 0,
+  });
+}
+
+export function useCategories() {
+  return useQuery<Category[]>({
+    queryKey: ['categories'],
+    queryFn: () => productsApi.getCategories(),
   });
 }
 
