@@ -4,12 +4,27 @@ import { TableSkeleton } from './TableSkeleton';
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function Table<T extends Record<string, any>>({ data, columns, sortKey, sortDirection, onSort, loading = false, className = '', }: TableProps<T>) {
+export function Table<T extends Record<string, any>>({ data, columns, sortKey, sortDirection, onSort, loading = false, isError = false, error = null, className = '' }: TableProps<T>) {
     const handleSort = (column: Column<T>) => {
         if (column.sortable && onSort) {
             onSort(column.key);
         }
     };
+
+    if (isError) {
+        return (
+            <div className="p-8">
+                <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto text-center">
+                    <h2 className="text-lg font-semibold text-red-800 mb-2">
+                        {error instanceof Error ? error.message : 'An unexpected error occurred'}
+                    </h2>
+                    <p className="text-red-600 text-sm">
+                        Please try refreshing the page or come back later.
+                    </p>
+                </div>
+            </div>
+        );
+    }
 
     if (loading) {
         return (

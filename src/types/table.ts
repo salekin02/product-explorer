@@ -15,6 +15,7 @@ export interface TableProps<T> {
     sortDirection?: 'asc' | 'desc' | null;
     onSort?: (key: string) => void;
     loading?: boolean;
-    emptyMessage?: string;
+    isError?: boolean;
+    error?: unknown;
     className?: string;
 }

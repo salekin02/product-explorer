@@ -52,3 +52,19 @@ export interface Category {
   name: string;
   url: string;
 }
+
+
+export type SortOrder = 'asc' | 'desc' | null;
+
+export interface FilterBarProps {
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
+  category: string;
+  onCategoryChange: (category: string) => void;
+  sortOrder: SortOrder;
+  onSortChange: () => void;
+  categories?: Category[];
+  onClearFilters: () => void;
+  showResults?: boolean;
+  resultsCount?: number;
+}
