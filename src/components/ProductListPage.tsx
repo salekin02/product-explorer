@@ -3,6 +3,7 @@ import { Table } from './common/Table';
 import type { Column } from '../types/table';
 import type { Product } from '../types/product';
 import { StarIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export function ProductListPage() {
   const { data, isLoading, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -13,24 +14,23 @@ export function ProductListPage() {
   const columns: Column<Product>[] = [
     {
       key: 'thumbnail',
-      header: 'Image',
-      className: 'w-20',
+      header: 'Name',
+      className: 'w-40',
       render: (product) => (
-        <img
-          src={product.thumbnail}
-          alt={product.title}
-          className="w-12 h-12 object-cover rounded"
-        />
+        <Link to={`/products/${product.id}`} className="flex items-center gap-2">
+          <img
+            src={product.thumbnail}
+            alt={product.title}
+            className="w-12 h-12 object-cover rounded"
+          />
+          <span>{product.title}</span>
+        </Link>
       ),
-    },
-    {
-      key: 'title',
-      header: 'Product Name',
     },
     {
       key: 'category',
       header: 'Category',
-      
+
     },
     {
       key: 'brand',
@@ -43,12 +43,12 @@ export function ProductListPage() {
       sortable: true,
     },
     {
-        key: 'discountPercentage',
-        header: 'Discount',
-        className: 'hidden md:table-cell',
-        render: (product) => (
-          <span>{product.discountPercentage.toFixed(2)}%</span>
-        ),
+      key: 'discountPercentage',
+      header: 'Discount',
+      className: 'hidden md:table-cell',
+      render: (product) => (
+        <span>{product.discountPercentage.toFixed(2)}%</span>
+      ),
     },
     {
       key: 'stock',
@@ -56,13 +56,12 @@ export function ProductListPage() {
       className: 'hidden md:table-cell',
       render: (product) => (
         <span
-          className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${
-            product.stock > 50
+          className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${product.stock > 50
               ? 'bg-green-100 text-green-800'
               : product.stock > 10
-              ? 'bg-yellow-100 text-yellow-800'
-              : 'bg-red-100 text-red-800'
-          }`}
+                ? 'bg-yellow-100 text-yellow-800'
+                : 'bg-red-100 text-red-800'
+            }`}
         >
           {product.stock}
         </span>
