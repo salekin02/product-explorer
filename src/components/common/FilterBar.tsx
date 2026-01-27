@@ -1,9 +1,19 @@
 import { Search } from 'lucide-react';
 import type { FilterBarProps } from '../../types/product';
-
+import { useRef, useCallback } from 'react';
 
 export function FilterBar({ searchQuery, onSearchChange, category, onCategoryChange, sortOrder, onSortChange, categories, onClearFilters, showResults = false, resultsCount }: FilterBarProps) {
     const hasActiveFilters = searchQuery || category || sortOrder;
+    const debounceTimer = useRef<number | null>(null);
+
+    const handleSearchChange = useCallback((value: string) => {
+        if (debounceTimer.current) {
+            clearTimeout(debounceTimer.current);
+        }
+        debounceTimer.current = setTimeout(() => {
+            onSearchChange(value);
+        }, 500);
+    }, [onSearchChange]);
 
     return (
         <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
@@ -12,8 +22,8 @@ export function FilterBar({ searchQuery, onSearchChange, category, onCategoryCha
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                     <input
                         type="text"
-                        value={searchQuery}
-                        onChange={(e) => onSearchChange(e.target.value)}
+                        defaultValue={searchQuery}
+                        onChange={(e) => handleSearchChange(e.target.value)}
                         placeholder="Search products by title..."
                         className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                     />
@@ -33,15 +43,18 @@ export function FilterBar({ searchQuery, onSearchChange, category, onCategoryCha
                         ))}
                     </select>
 
-                    <button
-                        onClick={onSortChange}
-                        className={`px-3 py-2 border rounded-lg ${sortOrder
-                            ? 'border-blue-500 bg-blue-50 text-blue-700'
-                            : 'border-gray-300 bg-white hover:bg-gray-50'
-                            }`}
+                    <select
+                        value={sortOrder || ''}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            onSortChange(value === '' ? null : value as 'asc' | 'desc');
+                        }}
+                        className="px-3 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 outline-none"
                     >
-                        Price: {sortOrder === 'asc' ? '↑ Low to High' : sortOrder === 'desc' ? '↓ High to Low' : 'Default'}
-                    </button>
+                        <option value="">Sort by Price</option>
+                        <option value="asc">Price: Low to High</option>
+                        <option value="desc">Price: High to Low</option>
+                    </select>
 
                     {hasActiveFilters && (
                         <button

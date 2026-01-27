@@ -93,14 +93,8 @@ export function ProductSearchPage() {
 
   const productColumns = createProductColumns(formatPrice);
 
-  const handleSortChange = () => {
-    if (!sortOrder) {
-      setSortOrder('asc');
-    } else if (sortOrder === 'asc') {
-      setSortOrder('desc');
-    } else {
-      setSortOrder(null);
-    }
+  const handleSortChange = (order: SortOrder) => {
+    setSortOrder(order);
   };
 
   return (

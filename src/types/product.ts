@@ -62,7 +62,7 @@ export interface FilterBarProps {
   category: string;
   onCategoryChange: (category: string) => void;
   sortOrder: SortOrder;
-  onSortChange: () => void;
+  onSortChange: (order: SortOrder) => void;
   categories?: Category[];
   onClearFilters: () => void;
   showResults?: boolean;

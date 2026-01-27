@@ -11,7 +11,7 @@ export function Header() {
 
   return (
     <header className="border-b border-gray-200 shadow-sm sticky top-0 bg-white z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
           <Link to="/products" className="font-semibold">
             Product Explorer
