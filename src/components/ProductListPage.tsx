@@ -4,12 +4,14 @@ import { useProducts } from '../hooks/useProducts';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll.tsx';
 import { Table } from './common/Table';
 import { InfiniteScrollLoader } from './common/InfiniteScrollLoader.tsx';
-import { productColumns } from '../config/productColumns';
+import { createProductColumns } from '../config/productColumns';
+import { useCurrency } from '../context/useCurrency';
 import { Search } from 'lucide-react';
 
 export function ProductListPage() {
   const [searchInput, setSearchInput] = useState('');
   const navigate = useNavigate();
+  const { formatPrice } = useCurrency();
   const { data, isLoading, isError, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useProducts();
 
@@ -20,6 +22,7 @@ export function ProductListPage() {
   });
 
   const allProducts = data?.pages.flatMap((page) => page.products) ?? [];
+  const productColumns = createProductColumns(formatPrice);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +55,7 @@ export function ProductListPage() {
           </div>
           <button
             type="submit"
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
           >
             Search
           </button>

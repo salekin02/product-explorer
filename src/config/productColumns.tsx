@@ -3,7 +3,7 @@ import { StarIcon } from 'lucide-react';
 import type { Column } from '../types/table';
 import type { Product } from '../types/product';
 
-export const productColumns: Column<Product>[] = [
+export const createProductColumns = (formatPrice: (price: number) => string): Column<Product>[] => [
   {
     key: 'thumbnail',
     header: 'Name',
@@ -36,6 +36,7 @@ export const productColumns: Column<Product>[] = [
     key: 'price',
     header: 'Price',
     sortable: true,
+    render: (product) => <span>{formatPrice(product.price)}</span>,
   },
   {
     key: 'discountPercentage',

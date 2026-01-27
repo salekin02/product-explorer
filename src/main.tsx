@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './index.css'
 import App from './App.tsx'
 import ErrorBoundary from './components/common/ErrorBoundary.tsx'
+import { CurrencyProvider } from './context/CurrencyContext.tsx'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,9 +19,11 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
+      <CurrencyProvider>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </CurrencyProvider>
     </ErrorBoundary>
   </StrictMode>,
 )

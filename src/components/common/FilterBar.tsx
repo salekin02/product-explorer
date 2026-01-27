@@ -35,7 +35,7 @@ export function FilterBar({ searchQuery, onSearchChange, category, onCategoryCha
 
                     <button
                         onClick={onSortChange}
-                        className={`px-3 py-2 border rounded-lg transition-colors ${sortOrder
+                        className={`px-3 py-2 border rounded-lg ${sortOrder
                             ? 'border-blue-500 bg-blue-50 text-blue-700'
                             : 'border-gray-300 bg-white hover:bg-gray-50'
                             }`}

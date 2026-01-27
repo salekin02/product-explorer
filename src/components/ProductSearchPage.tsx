@@ -7,12 +7,14 @@ import { useQuery } from '@tanstack/react-query';
 import { productsApi } from '../api/products.ts';
 import { Table } from './common/Table.tsx';
 import { InfiniteScrollLoader } from './common/InfiniteScrollLoader.tsx';
-import { productColumns } from '../config/productColumns';
+import { createProductColumns } from '../config/productColumns';
+import { useCurrency } from '../context/useCurrency';
 import type { SortOrder } from '../types/product.ts';
 import { FilterBar } from './common/FilterBar.tsx';
 
 export function ProductSearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { formatPrice } = useCurrency();
   
   // Zustand store for UI state
   const {
@@ -88,6 +90,8 @@ export function ProductSearchPage() {
       return sortOrder === 'asc' ? a.price - b.price : b.price - a.price;
     });
   }
+
+  const productColumns = createProductColumns(formatPrice);
 
   const handleSortChange = () => {
     if (!sortOrder) {

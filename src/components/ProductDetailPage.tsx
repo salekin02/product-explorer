@@ -3,11 +3,13 @@ import { useProduct } from '../hooks/useProducts';
 import { StarIcon, ArrowLeft } from 'lucide-react';
 import type { Review } from '../types/product';
 import { LoadingSpinner } from './common/LoadingSpinner';
+import { useCurrency } from '../context/useCurrency';
 
 export function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { data: product, isLoading, isError, error } = useProduct(id!);
+  const { formatPrice } = useCurrency();
 
   if (isLoading) {
     return <LoadingSpinner fullPage message="Loading product details..." />;
@@ -26,7 +28,7 @@ export function ProductDetailPage() {
             </p>
             <Link
               to="/products"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
               <ArrowLeft size={16} />
               Back to Products
@@ -45,7 +47,7 @@ export function ProductDetailPage() {
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors"
+          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
         >
           <ArrowLeft size={20} />
           <span>Back</span>
@@ -88,10 +90,10 @@ export function ProductDetailPage() {
             {/* Price */}
             <div className="py-4">
               <div className="flex items-baseline gap-3">
-                <span className="text-3xl font-bold">${discountedPrice.toFixed(2)}</span>
+                <span className="text-3xl font-bold">{formatPrice(discountedPrice)}</span>
                 {product.discountPercentage > 0 && (
                   <>
-                    <span className="text-lg text-gray-400 line-through">${product.price.toFixed(2)}</span>
+                    <span className="text-lg text-gray-400 line-through">{formatPrice(product.price)}</span>
                     <span className="text-sm text-red-600">
                       -{product.discountPercentage.toFixed(0)}% off
                     </span>
