@@ -14,11 +14,13 @@ This is a product explorer that pulls from the DummyJSON API. You can browse pro
 
 ## Trade-offs I Made
 
-1. No real-time currency rates. I hardcoded exchange rates (USD, GBP, EUR). In a real app, I'd pull from an API like exchangerate-api.io and cache the results daily.
+1. Pagination not persisted in URL. The search page URL captures query, category, and sort order. But not the current scroll position/page number. With infinite scroll, restoring exact position would require fetching multiple pages on initial load, adding complexity. Users sharing a URL will see results from page 1, which is acceptable UX but not perfect state restoration.
 
-2. Basic error messages. Right now errors just say "something went wrong." I wanted to show variations for different type scenario.
+2. No real-time currency rates. I hardcoded exchange rates (USD, GBP, EUR). In a real app, I'd pull from an API like exchangerate-api.io and cache the results daily.
 
-3. Skipped unit tests. I manually tested everything pretty thoroughly, but didn't write Jest tests. The infinite scroll logic and URL state management would benefit from automated tests.
+3. Basic error messages. Right now errors just say "something went wrong." I wanted to show variations for different type scenarios.
+
+4. Skipped unit tests. I manually tested everything thoroughly, but didn't write Jest/Vitest tests. The infinite scroll logic and URL state management would benefit from automated tests.
 
 ## How I'd Scale This
 
