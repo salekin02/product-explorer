@@ -84,7 +84,8 @@ export function Table<T extends Record<string, any>>({ data, columns, sortKey, s
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                    {data.map((item, index) => (
+                    {data && data.length ? 
+                    data.map((item, index) => (
                         <tr key={index}>
                             {columns.map((column) => (
                                 <td
@@ -95,8 +96,15 @@ export function Table<T extends Record<string, any>>({ data, columns, sortKey, s
                                 </td>
                             ))}
                         </tr>
-                    ))}
-                </tbody>
+                    ))
+                :
+                  <tr>
+                    <td className="text-gray-500 py-8 text-sm text-center">
+                        No data available
+                    </td>
+            </tr>
+                }
+                </tbody>                
             </table>
         </div>
     );
