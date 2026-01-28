@@ -12,8 +12,8 @@ export const useFilterStore = create<FilterState>((set) => ({
   searchQuery: '',
   category: '',
   sortOrder: null,
-  setSearchQuery: (query) => set({ searchQuery: query, category: '' }), // Clear category when searching
-  setCategory: (category) => set({ category, searchQuery: '' }), // Clear search when filtering
+  setSearchQuery: (query) => set({ searchQuery: query }),
+  setCategory: (category) => set({ category }),
   setSortOrder: (order) => set({ sortOrder: order }),
   clearFilters: () => set({ searchQuery: '', category: '', sortOrder: null }),
 }));

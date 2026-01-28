@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useCategories } from '../hooks/useProducts';
 import { Table } from './common/Table';
 import type { Column } from '../types/table';
@@ -7,22 +6,11 @@ import type { Category } from '../types/product';
 const categoryColumns: Column<Category>[] = [
   {
     key: 'name',
-    header: 'Category',
-    render: (category) => (
-      <Link
-        to={`/products/search?category=${category.slug}`}
-        className="font-medium text-blue-600 hover:text-blue-800 capitalize"
-      >
-        {category.name}
-      </Link>
-    ),
+    header: 'Category'
   },
   {
     key: 'url',
     header: 'API URL',
-    render: (category) => (
-      <span className="text-sm text-gray-500">{category.url}</span>
-    ),
   },
 ];
 

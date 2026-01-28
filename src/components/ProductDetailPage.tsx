@@ -81,7 +81,7 @@ export function ProductDetailPage() {
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1">
                   <StarIcon className="text-yellow-500 fill-yellow-500" size={20} />
-                  <span className="font-semibold">{product.rating.toFixed(1)}</span>
+                  <span className="font-semibold">{product.rating?.toFixed(1)}</span>
                 </div>
                 <span className="text-gray-500 text-sm">({product.reviews?.length || 0} reviews)</span>
               </div>
@@ -95,7 +95,7 @@ export function ProductDetailPage() {
                   <>
                     <span className="text-lg text-gray-400 line-through">{formatPrice(product.price)}</span>
                     <span className="text-sm text-red-600">
-                      -{product.discountPercentage.toFixed(0)}% off
+                      -{product.discountPercentage?.toFixed(0)}% off
                     </span>
                   </>
                 )}

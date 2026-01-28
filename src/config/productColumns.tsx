@@ -15,6 +15,7 @@ export const createProductColumns = (formatPrice: (price: number) => string): Co
             src={product.thumbnail}
             alt={product.title}
             className="w-12 h-12 object-cover rounded"
+            loading='lazy'
           />
           <span className="truncate w-48" title={product.title}>
             {product.title}
@@ -42,7 +43,7 @@ export const createProductColumns = (formatPrice: (price: number) => string): Co
     key: 'discountPercentage',
     header: 'Discount',
     className: 'hidden md:table-cell',
-    render: (product) => <span>{product.discountPercentage.toFixed(2)}%</span>,
+    render: (product) => <span>{product.discountPercentage?.toFixed(2)}%</span>,
   },
   {
     key: 'stock',
@@ -71,7 +72,7 @@ export const createProductColumns = (formatPrice: (price: number) => string): Co
         <span className="text-yellow-500">
           <StarIcon size={18} />
         </span>
-        <span>{product.rating.toFixed(1)}</span>
+        <span>{product.rating?.toFixed(1)}</span>
       </div>
     ),
   },

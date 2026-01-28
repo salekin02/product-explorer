@@ -34,34 +34,25 @@ export function useProduct(id: string) {
   });
 }
 
-export function useProductSearch(query: string, enabled = true) {
+export function useProductSearch(query?: string, category?: string, sortBy?: string, sortOrder?: 'asc' | 'desc' | null) {
   return useInfiniteQuery<ProductsResponse>({
-    queryKey: ['products', 'search', query],
+    queryKey: ['products', 'search', query, category, sortBy, sortOrder],
     queryFn: async ({ pageParam }) => {
       const skip = (pageParam as number) ?? 0;
-      return productsApi.searchProducts(query, ITEMS_PER_PAGE, skip);
+      return productsApi.searchProducts(
+        query || '',
+        ITEMS_PER_PAGE,
+        skip,
+        category,
+        sortBy,
+        sortOrder
+      );
     },
     getNextPageParam: (lastPage) => {
       const nextSkip = lastPage.skip + lastPage.limit;
       return nextSkip < lastPage.total ? nextSkip : undefined;
     },
     initialPageParam: 0,
-    enabled: enabled && query.length > 0, // Only search if query exists
-  });
-}
-
-export function useProductsByCategory(category: string) {
-  return useInfiniteQuery<ProductsResponse>({
-    queryKey: ['products', 'category', category],
-    queryFn: async ({ pageParam }) => {
-      const skip = (pageParam as number) ?? 0;
-      return productsApi.getProductsByCategory(category, ITEMS_PER_PAGE, skip);
-    },
-    getNextPageParam: (lastPage) => {
-      const nextSkip = lastPage.skip + lastPage.limit;
-      return nextSkip < lastPage.total ? nextSkip : undefined;
-    },
-    initialPageParam: 0,
-    enabled: !!category,
+    enabled: !!query || !!category || !!sortOrder, // only fetch if at least one filter is applied
   });
 }

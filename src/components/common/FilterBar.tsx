@@ -66,21 +66,6 @@ export function FilterBar({ searchQuery, onSearchChange, category, onCategoryCha
                     )}
                 </div>
 
-                {(searchQuery || category) && (
-                    <div className="flex flex-wrap gap-2">
-                        {searchQuery && (
-                            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800">
-                                Search: "{searchQuery}"
-                            </span>
-                        )}
-                        {category && (
-                            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
-                                Category: {category}
-                            </span>
-                        )}
-                    </div>
-                )}
-
                 {showResults && resultsCount !== undefined && (
                     <p className="text-gray-500 text-sm">
                         Found {resultsCount} products
