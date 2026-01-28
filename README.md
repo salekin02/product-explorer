@@ -1,6 +1,9 @@
-``` npm install ```
+## Setup
 
-``` npm run dev ```
+```bash
+npm install
+npm run dev
+```
 
 `` The app should open at `http://localhost:5173` ``
 

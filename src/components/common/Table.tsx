@@ -99,7 +99,7 @@ export function Table<T extends Record<string, any>>({ data, columns, sortKey, s
                     ))
                 :
                   <tr>
-                    <td className="text-gray-500 py-8 text-sm text-center">
+                    <td colSpan={columns.length} className="text-gray-500 py-8 text-sm text-center">
                         No data available
                     </td>
             </tr>
