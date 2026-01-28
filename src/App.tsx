@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import './App.css';
 import { ProductListPage } from './components/ProductListPage';
 import { ProductSearchPage } from './components/ProductSearchPage';
 import { ProductDetailPage } from './components/ProductDetailPage';
