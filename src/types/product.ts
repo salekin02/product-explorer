@@ -67,4 +67,6 @@ export interface FilterBarProps {
   onClearFilters: () => void;
   showResults?: boolean;
   resultsCount?: number;
+  filterType: 'search' | 'category';
+  onFilterTypeChange: (type: 'search' | 'category') => void;
 }

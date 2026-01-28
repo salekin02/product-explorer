@@ -39,11 +39,22 @@ export function useProductSearch(query?: string, category?: string, sortBy?: str
     queryKey: ['products', 'search', query, category, sortBy, sortOrder],
     queryFn: async ({ pageParam }) => {
       const skip = (pageParam as number) ?? 0;
+      
+      // Use category API if category is present, otherwise use search API
+      if (category) {
+        return productsApi.getProductsByCategory(
+          category,
+          ITEMS_PER_PAGE,
+          skip,
+          sortBy,
+          sortOrder
+        );
+      }
+      
       return productsApi.searchProducts(
         query || '',
         ITEMS_PER_PAGE,
         skip,
-        category,
         sortBy,
         sortOrder
       );
@@ -53,6 +64,6 @@ export function useProductSearch(query?: string, category?: string, sortBy?: str
       return nextSkip < lastPage.total ? nextSkip : undefined;
     },
     initialPageParam: 0,
-    enabled: !!query || !!category || !!sortOrder, // only fetch if at least one filter is applied
+    // Always enabled - empty query/category will fetch all products
   });
 }

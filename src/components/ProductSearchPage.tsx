@@ -16,7 +16,7 @@ export function ProductSearchPage() {
   const isInitialMount = useRef(true);
   // Fetch categories list for filter
   const { data: categories } = useCategories();
-  const { searchQuery, category, sortOrder, setSearchQuery, setCategory, setSortOrder, clearFilters } = useFilterStore();
+  const { searchQuery, category, sortOrder, setSearchQuery, setCategory, setSortOrder, clearFilters, filterType, setFilterType } = useFilterStore();
 
   // initial mount
   useEffect(() => {
@@ -28,6 +28,14 @@ export function ProductSearchPage() {
       setSearchQuery(urlQuery);
       setCategory(urlCategory);
       setSortOrder(urlSort);
+
+      if (urlQuery) {
+        setSearchQuery(urlQuery);
+        setFilterType('search');
+      } else if (urlCategory) {
+        setCategory(urlCategory);
+        setFilterType('category');
+      }
 
       isInitialMount.current = false;
     }
@@ -89,18 +97,20 @@ export function ProductSearchPage() {
         onClearFilters={clearFilters}
         showResults={!!(searchQuery || category)}
         resultsCount={data?.pages[0]?.total}
+        filterType={filterType}
+        onFilterTypeChange={setFilterType}
       />
-        <>
-          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
-            <Table data={allProducts} columns={productColumns} loading={isLoading} isError={isError} error={error} />
-          </div>
+      <>
+        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
+          <Table data={allProducts} columns={productColumns} loading={isLoading} isError={isError} error={error} />
+        </div>
 
-          <InfiniteScrollLoader
-            observerRef={observerTarget}
-            hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-          />
-        </>
+        <InfiniteScrollLoader
+          observerRef={observerTarget}
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+        />
+      </>
     </div>
   );
 }

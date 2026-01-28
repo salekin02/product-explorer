@@ -11,12 +11,22 @@ export const productsApi = {
     return response.json();
   },
   
-  searchProducts: async (query: string, limit = 20, skip = 0, category?: string, sortBy?: string, order?: 'asc' | 'desc' | null) => {
+  searchProducts: async (query: string, limit = 20, skip = 0, sortBy?: string, order?: 'asc' | 'desc' | null) => {
     const url = new URL(`${BASE_URL}/products/search`);
     url.searchParams.set('q', query);
     url.searchParams.set('limit', limit.toString());
     url.searchParams.set('skip', skip.toString());
-    if (category) url.searchParams.set('category', category);
+    if (sortBy) url.searchParams.set('sortBy', sortBy);
+    if (order) url.searchParams.set('order', order);
+    
+    const response = await fetch(url.toString());
+    return response.json();
+  },
+  
+  getProductsByCategory: async (category: string, limit = 20, skip = 0, sortBy?: string, order?: 'asc' | 'desc' | null) => {
+    const url = new URL(`${BASE_URL}/products/category/${category}`);
+    url.searchParams.set('limit', limit.toString());
+    url.searchParams.set('skip', skip.toString());
     if (sortBy) url.searchParams.set('sortBy', sortBy);
     if (order) url.searchParams.set('order', order);
     
