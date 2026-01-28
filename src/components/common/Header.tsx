@@ -12,12 +12,12 @@ export function Header() {
   return (
     <header className="border-b border-gray-200 shadow-sm sticky top-0 bg-white z-10">
       <div className="px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
+        <div className="flex items-center justify-between h-14 flex-wrap sm:flex-nowrap">
           <Link to="/products" className="font-semibold">
             Product Explorer
           </Link>
             
-          <nav className="flex items-center gap-6">
+          <nav className="flex items-center gap-3 sm:gap-6">
             <Link
               to="/products"
               className={`text-sm ${
